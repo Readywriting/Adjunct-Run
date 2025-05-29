@@ -14817,14 +14817,27 @@ cr.plugins_.TiledBg = function(runtime)
 					 this.width,
 					 this.height);
 		ctx.restore();
-	};
-	instanceProto.drawGL = function(glw)
+	};	instanceProto.drawGL = function(glw)
 	{
 		glw.setTexture(this.webGL_texture);
 		glw.setOpacity(this.opacity);
 		var rcTex = this.rcTex;
-		rcTex.right = this.width / this.texture_img.width;
-		rcTex.bottom = this.height / this.texture_img.height;
+		
+		// Fix white bands by ensuring texture coordinates align with texture boundaries
+		// Use Math.floor to prevent sampling beyond texture bounds
+		var texWidth = this.texture_img.width;
+		var texHeight = this.texture_img.height;
+		var repeatX = this.width / texWidth;
+		var repeatY = this.height / texHeight;
+		
+		// Floor the repetition to avoid fractional sampling at edges
+		rcTex.right = Math.floor(repeatX * texWidth) / texWidth;
+		rcTex.bottom = Math.floor(repeatY * texHeight) / texHeight;
+		
+		// If we have less than one full repeat, use the original calculation
+		if (repeatX < 1.0) rcTex.right = repeatX;
+		if (repeatY < 1.0) rcTex.bottom = repeatY;
+		
 		var q = this.bquad;
 		if (this.runtime.pixel_rounding)
 		{
@@ -17451,11 +17464,10 @@ cr.getProjectModel = function() { return [
 				9,
 				9,
 				[
+				],				[
 				],
 				[
-				],
-				[
-					"Adjunct Run! Hit the Space Bar to jump and collect classes, but beware of the Chair who will take classes away. Can you maintain balance? Press anywhere to Begin.",
+					"",
 					0,
 					"bold 20pt Arial",
 					"rgb(0,0,0)",

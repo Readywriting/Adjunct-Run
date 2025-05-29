@@ -27,8 +27,7 @@
 		}
 		html, body {
 			background: #000;
-			color: #fff;
-			overflow: hidden;
+			color: #fff;			overflow: hidden;
 			touch-action: none;
 			-ms-touch-action: none;
 		}
@@ -36,6 +35,31 @@
 			touch-action-delay: none;
 			touch-action: none;
 			-ms-touch-action: none;
+		}
+		.game-info {
+			text-align: center;
+			padding: 20px;
+			font-family: Arial, sans-serif;
+			background: #111;
+			color: #fff;
+		}
+		.game-info h1 {
+			margin: 0 0 10px 0;
+			font-size: 2.5em;
+		}		.game-info p {
+			font-size: 1.2em;
+			margin: 10px 0;
+		}
+		.game-info .read-more {
+			font-size: 0.9em;
+			margin-top: 15px;
+		}
+		.game-info .read-more a {
+			color: #66ccff;
+			text-decoration: none;
+		}
+		.game-info .read-more a:hover {
+			text-decoration: underline;
 		}
     </style>
 	
@@ -54,7 +78,15 @@
 			alert("Exported games won't work until you upload them. (When running on the file:/// protocol, browsers block many features from working for security reasons.)");
 		}
 	})();
-	</script>
+	</script>	<!-- Game Information Section -->
+	<div class="game-info">
+		<h1>Adjunct Run</h1>
+		<p>Hit the Space Bar to jump and collect classes, but beware of the Chair who will take classes away.</p>
+		<p>Can you maintain balance? Click anywhere on the lockers to begin.</p>
+		<div class="read-more">
+			<a href="https://repository.rit.edu/jcws/vol4/iss1/9/" target="_blank">Read more about this game</a>
+		</div>
+	</div>
 	
 	<!-- The canvas must be inside a div called c2canvasdiv -->
 	<div id="c2canvasdiv">
